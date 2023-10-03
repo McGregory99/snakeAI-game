@@ -6,7 +6,11 @@ Con el objetivo de fortalecer mis habilidades en PyTorch y el desarrollo de agen
 
 La red neuronal utilizada es fundamentalmente básica, compuesta por una única capa oculta. Se sigue el esquema visualizado en la siguiente imagen:
 
-![Esquema de la Red Neuronal](https://github.com/McGregory99/snakeAI-game/assets/85994371/b8f218db-f726-4062-8254-95141c0c3b7a)
+
+<p align="center">
+  <img src="https://github.com/McGregory99/snakeAI-game/assets/85994371/b8f218db-f726-4062-8254-95141c0c3b7a" alt="Esquema de la Red Neuronal">
+</p>
+
 
 Con esta red, la serpiente logra:
 
@@ -18,7 +22,11 @@ Con esta red, la serpiente logra:
 
 A medida que el modelo va entrenando, en la carpeta ```/img``` se guardan gráficas con las métricas obtenidas
 
-![250 juegos](https://github.com/McGregory99/snakeAI-game/assets/85994371/1259df00-4aab-4dc6-a028-f6759389c96c)
+
+<p align="center">
+  <img src="https://github.com/McGregory99/snakeAI-game/assets/85994371/1259df00-4aab-4dc6-a028-f6759389c96c" alt="Métricas 250 juegos">
+</p>
+
 
 ## Instrucciones para Utilizar Este Repositorio
 
@@ -34,17 +42,27 @@ A medida que el modelo va entrenando, en la carpeta ```/img``` se guardan gráfi
 
      ```
      pip -m venv .venv
-     source .venv/bin/activate  # (si estás en Windows, usa .venv\Scripts\activate.bat)
+     ```
+   - (si estás en Windows, usa lo siguiente)
+3. **Activa el Entorno:**
+   - Linux:
+     ```
+     source .venv/bin/activate
      ```
 
-3. **Instala las Dependencias:**
+   - Windows:
+     ```
+     .venv\Scripts\activate.bat
+     ```
+     
+4. **Instala las Dependencias:**
    - Utiliza el siguiente comando para instalar las dependencias necesarias:
 
      ```
      pip install -r requirements.txt
      ```
 
-4. **Ejecuta el Archivo Principal:**
+5. **Ejecuta el Archivo Principal:**
    - Finalmente, ejecuta el archivo principal de la aplicación:
 
      ```
