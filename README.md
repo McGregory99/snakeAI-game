@@ -43,7 +43,6 @@ A medida que el modelo va entrenando, en la carpeta ```/img``` se guardan gráfi
      ```
      pip -m venv .venv
      ```
-   - (si estás en Windows, usa lo siguiente)
 3. **Activa el Entorno:**
    - Linux:
      ```
