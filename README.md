@@ -41,10 +41,10 @@ A medida que el modelo va entrenando, en la carpeta ```/img``` se guardan gráfi
    - Crea un entorno virtual para este proyecto. Ejecuta los siguientes comandos:
 
      ```
-     pip -m venv .venv
+     pithon -m venv .venv
      ```
 3. **Activa el Entorno:**
-   - Linux:
+   - Linux/MacOS:
      ```
      source .venv/bin/activate
      ```
