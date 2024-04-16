@@ -7,7 +7,18 @@ st.set_page_config(page_title='SNAKE AI GAME',
         layout='centered', 
         initial_sidebar_state='expanded')
     
+def set_display():
+    sidebar = st.sidebar
+    btn_compute = sidebar.button("COMPUTE", on_click=main)
+    
+    # TODO: CUADRADO EN EL MEDIOO PARA MOSTRAR LA ST.PYPLOT. WWITH ST.EMTY()?
+    # TODO: PUNTUACI'ON ARRIBA
+    # TODO: TIEMPO ARRIBA
+    # TODO: BOTON DE STOP
+    
 def main():
+    set_display()
+    
     plot_scores = []
     plot_mean_scores = []
     total_score = 0
@@ -22,7 +33,9 @@ def main():
         final_move = agent.get_action(state_old)
 
         # hacer el movimiento y obtener nuevo estado
-        reward, game_over, score = game.play_step(final_move)
+        reward, game_over, score, fig = game.play_step(final_move)
+        st.pyplot(fig)
+        # TODO: REFRESH THE FIGURE
         state_new = agent.get_state(game)
 
         # train short memory
@@ -52,4 +65,4 @@ def main():
             #    plot(plot_scores, plot_mean_scores, agent.num_games)
 
 if __name__ == '__main__':
-    btn_compute = st.sidebar.button("COMPUTE", on_click=train)
+    set_display()

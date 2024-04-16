@@ -5,6 +5,8 @@ from collections import namedtuple
 import numpy as np
 import matplotlib.pyplot as plt
 
+import streamlit as st
+
 #pygame.init()
 #font = pygame.font.Font('arial.ttf', 25)
 #font = pygame.font.SysFont('arial', 25)
@@ -89,10 +91,10 @@ class SnakeGameAI:
             self.snake.pop()
         
         # 5. update ui and clock
-        self._update_ui()
+        fig = self._update_ui()
         #self.clock.tick(SPEED)
         # 6. return game over and score
-        return reward, game_over, self.score
+        return reward, game_over, self.score, fig
     
     # Return True si hay colisión, False en caso contrario
     def is_collision(self, pt=None):
@@ -110,28 +112,31 @@ class SnakeGameAI:
         return False
     
     def _update_ui(self):
+        # Crea una nueva figura de Matplotlib
         fig, ax = plt.subplots()
         
         # Borra cualquier contenido previo
         ax.clear()
         
-        # Dibuja el fondo negro
-        ax.set_facecolor('black')
-        
-        # Dibuja la serpiente
+        # Crea una matriz de BLOCK_SIZE x BLOCK_SIZE rellena de ceros (fondo negro)
+        matrix = np.zeros((BLOCK_SIZE, BLOCK_SIZE))
+        st.write(self.snake)
+        # Dibuja la serpiente en la matriz
         for pt in self.snake:
-            ax.add_patch(plt.Rectangle((pt.x, pt.y), 20, 20, color='blue'))
-            ax.add_patch(plt.Rectangle((pt.x + 4, pt.y + 4), 12, 12, color='lightblue'))
+            matrix[pt.y // BLOCK_SIZE, pt.x // BLOCK_SIZE] = 1
         
-        # Dibuja la comida
-        ax.add_patch(plt.Rectangle((self.food.x, self.food.y), 20, 20, color='red'))
+        # Dibuja la comida en la matriz
+        matrix[self.food.y // BLOCK_SIZE, self.food.x // BLOCK_SIZE] = 2
+        
+        # Visualiza la matriz con colores correspondientes en la figura
+        ax.imshow(matrix, cmap='gist_ncar', interpolation='nearest')
         
         # Configura el texto del puntaje
         ax.text(0, 0, "Score: " + str(self.score), color='white')
         
-        # Configura los límites de la figura para que coincidan con el tamaño de la pantalla
-        #ax.set_xlim([0, SCREEN_WIDTH])
-        #ax.set_ylim([0, SCREEN_HEIGHT])
+        # Configura los límites de la figura para que coincidan con el tamaño de la matriz
+        ax.set_xlim([0, BLOCK_SIZE-1])
+        ax.set_ylim([0, BLOCK_SIZE-1])
         
         # Retorna la figura
         return fig
