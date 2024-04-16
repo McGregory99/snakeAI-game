@@ -1,11 +1,12 @@
-import pygame
+#import pygame
 import random
 from enum import Enum
 from collections import namedtuple
 import numpy as np
+import matplotlib.pyplot as plt
 
-pygame.init()
-font = pygame.font.Font('arial.ttf', 25)
+#pygame.init()
+#font = pygame.font.Font('arial.ttf', 25)
 #font = pygame.font.SysFont('arial', 25)
 
 class Direction(Enum):
@@ -27,14 +28,13 @@ BLOCK_SIZE = 20 # Tamaño de un bloque en px
 SPEED = 20
 
 class SnakeGameAI:
-    
     def __init__(self, w=640, h=480):
         self.w = w
         self.h = h
         # init display
-        self.display = pygame.display.set_mode((self.w, self.h))
-        pygame.display.set_caption('Snake')
-        self.clock = pygame.time.Clock()
+        #self.display = pygame.display.set_mode((self.w, self.h))
+        #pygame.display.set_caption('Snake')
+        #self.clock = pygame.time.Clock()
         self.reset()
 
     def reset(self):
@@ -63,10 +63,10 @@ class SnakeGameAI:
         self.frame_iteration += 1
 
         # 1. collect user input
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+        #for event in pygame.event.get():
+            #if event.type == pygame.QUIT:
+                #pygame.quit()
+                #quit()
         
         # 2. move
         self._move(action) # update the head
@@ -90,7 +90,7 @@ class SnakeGameAI:
         
         # 5. update ui and clock
         self._update_ui()
-        self.clock.tick(SPEED)
+        #self.clock.tick(SPEED)
         # 6. return game over and score
         return reward, game_over, self.score
     
@@ -108,19 +108,48 @@ class SnakeGameAI:
             return True
         
         return False
-        
+    
     def _update_ui(self):
-        self.display.fill(BLACK)
+        fig, ax = plt.subplots()
         
+        # Borra cualquier contenido previo
+        ax.clear()
+        
+        # Dibuja el fondo negro
+        ax.set_facecolor('black')
+        
+        # Dibuja la serpiente
         for pt in self.snake:
-            pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
-            pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
-            
-        pygame.draw.rect(self.display, RED, pygame.Rect(self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))
+            ax.add_patch(plt.Rectangle((pt.x, pt.y), 20, 20, color='blue'))
+            ax.add_patch(plt.Rectangle((pt.x + 4, pt.y + 4), 12, 12, color='lightblue'))
         
-        text = font.render("Score: " + str(self.score), True, WHITE)
-        self.display.blit(text, [0, 0])
-        pygame.display.flip()
+        # Dibuja la comida
+        ax.add_patch(plt.Rectangle((self.food.x, self.food.y), 20, 20, color='red'))
+        
+        # Configura el texto del puntaje
+        ax.text(0, 0, "Score: " + str(self.score), color='white')
+        
+        # Configura los límites de la figura para que coincidan con el tamaño de la pantalla
+        #ax.set_xlim([0, SCREEN_WIDTH])
+        #ax.set_ylim([0, SCREEN_HEIGHT])
+        
+        # Retorna la figura
+        return fig
+
+
+    #def _update_ui(self):
+    #   pass
+    #    self.display.fill(BLACK)
+        
+        #for pt in self.snake:
+            #pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
+            #pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
+            
+        #pygame.draw.rect(self.display, RED, pygame.Rect(self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))
+        
+        #text = font.render("Score: " + str(self.score), True, WHITE)
+        #self.display.blit(text, [0, 0])
+        #pygame.display.flip()
         
     # Partiendo de action, se determina el siguiente movimiento 
     # [1,0,0] -> Recto || [0,1,0] -> Giro derecha || [0,0,1] -> Giro izquierda
