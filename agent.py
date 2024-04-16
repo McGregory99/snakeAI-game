@@ -156,5 +156,3 @@ def train():
                 plot(plot_scores, plot_mean_scores, agent.num_games)
 
 
-if __name__ == '__main__':
-    train()
